@@ -2,7 +2,8 @@
 "use client"
 import {cn} from "../lib/utils"
 import Link  from 'next/link'
-
+import { usePathname } from "next/navigation" 
+import path from "path";
 
 interface Props{
   className?:string;
@@ -10,7 +11,10 @@ interface Props{
 }
 
 const Navbar = ({className,spanClassName}: Props) => {
-  const pathname = usePathname
+  const pathname = usePathname();
+
+  console.log(pathname);
+
   const navigation = [
     {_id:910, title:"Home", href:"/"},
     {_id:911, title:"Phone", href:"/phones"},
@@ -31,7 +35,10 @@ const Navbar = ({className,spanClassName}: Props) => {
             {navigation.map((item) => (
                 //eslint-disable-next-line react/jsx-key
                 <Link href={item?.href}>
-                  <li>{item?.title}</li>
+                  <li className={`hover:text-black cursor-pointer duration-200 relative overflow-hidden group ${item.href === pathname && 'text-designColor'}`}>
+                    {item?.title}
+                    <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-0=[100]`}/>
+                  </li>
                 </Link>
               ))}
           </ul>
