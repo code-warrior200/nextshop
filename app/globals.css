@@ -2,26 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.bgDesign{
+  background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fblack-textured-bg%3Fimage_type%3Dvector&psig=AOvVaw0GGvv71IMsO9GhEoSzZZuO&ust=1704968675808000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDlw8DN0oMDFQAAAAAdAAAAABAQ");
 }
