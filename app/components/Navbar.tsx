@@ -3,7 +3,7 @@
 import {cn} from "../lib/utils"
 import Link  from 'next/link'
 import { usePathname } from "next/navigation" 
-import path from "path";
+import {Heart,ShoppingBagIcon} from "lucide-react";
 
 interface Props{
   className?:string;
@@ -35,15 +35,32 @@ const Navbar = ({className,spanClassName}: Props) => {
             {navigation.map((item) => (
                 //eslint-disable-next-line react/jsx-key
                 <Link href={item?.href}>
-                  <li className={`hover:text-black cursor-pointer duration-200 relative overflow-hidden group ${item.href === pathname && 'text-designColor'}`}>
-                    {item?.title}
-                    <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-0=[100]`}/>
+                  <li className={`hover:text-black cursor-pointer duration-200 relative overflow-hidden group 
+                    ${item.href === pathname && 'text-designColor'}`}
+                  >
+                  {item?.title}
+                    <span className={`absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500 
+                      ${item.href === pathname && "translate-x-0 bg-designColor"}`}
+                    />
                   </li>
                 </Link>
               ))}
           </ul>
           {/* Icons */}
-          <p>Icons</p>
+          <div className="flex items-center gap-x-5">
+            <Link href={"/wishlist"} className="hover:text-black cursor-pointer duration-200 relative group">
+              <Heart className="w-7 h-7"/>
+              <span className="absolute top-0 -left-1 bg-zinc-800 text-zinc-200 w-4 h-4 rounded-full text-xs flex items-center justify-center group-hover:bg-black font-semibold group-hover:text-white">0</span>  
+            </Link>
+            <Link href={"/wishlist"} className="hover:text-black cursor-pointer duration-200 relative group">
+              <ShoppingBagIcon className="w-7 h-7"/>
+              <span className="absolute top-0 -left-1 bg-zinc-800 text-zinc-200 w-4 h-4 rounded-full text-xs flex items-center justify-center group-hover:bg-black font-semibold group-hover:text-white">0</span>  
+            </Link>
+            <button className="hover:text-black text-sm uppercase font-semibold cursor-pointer duration-200 relative overflow-hidden group">
+              Login
+              <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500" />
+            </button>
+          </div>
         </div>
     </div>
   )
