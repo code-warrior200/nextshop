@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import Slider from "react-slick";
-import {sliderSix, sliderTwo, sliderThree} from "@/app/assets/slider";
+import {sliderOne} from "@/app/assets";
 import Image from 'next/image';
 
 const Banner = () => {
@@ -16,9 +16,9 @@ const Banner = () => {
   return (
     <div className='lg:min-h-screen relative'>
       <Slider {...settings}>
-        <div>
-         <div>
-          <Image src={sliderTwo} alt='sliderSix' className='' priority />
+        <div className='w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative'>
+         <div className='w-full lg:w-1/3 hidden lg:inline-block h-full bg-designColor z-0 relative'>
+          <Image src={sliderOne} alt='sliderfive' className='absolute object-cover right-0 lg:-right-48 lg:h-screen ' priority/>
          </div>
         </div>       
       </Slider>
