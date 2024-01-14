@@ -24,7 +24,7 @@ const Navbar = ({className,spanClassName}: Props) => {
   ]
 
   return (
-    <div className="w-full h-20 border-b-[1px] border-b-zinc-500 bg-white text-zinc-600">
+    <div className="w-full h-20 border-b-[1px] border-b-zinc-500 bg-white text-zinc-600 sticky top-0 z-50 bg-white/80 backdrop-blur-2xl">
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4 xl:px-0 ">
           {/* Logo */}
           <Link href={"/"} className={cn('text-zinc-950 text-xl underline underline-offset-4 decoration-[1px] group')}>
