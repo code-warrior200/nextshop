@@ -20,6 +20,12 @@ const Banner = () => {
          <div className='w-full lg:w-1/3 hidden lg:inline-block h-full bg-designColor z-0 relative'>
           <Image src={sliderOne} alt='sliderfive' className='absolute object-cover right-0 lg:-right-48 lg:h-screen ' priority/>
          </div>
+         <div className='lg:absolute lg:top-1/2 lg:left-2/3 transform lg:translate-x-1/2 lg:translate-y-1/2 flex flex-col items-center gap-5 '>
+          <p>Get the best products for you</p>
+          <p>
+            Browse the latest phones in the Market and get the one dreamt for 
+          </p>
+         </div>
         </div>       
       </Slider>
     </div>
