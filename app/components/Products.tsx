@@ -8,8 +8,6 @@ const Products = async() => {
 
   const products = await getProducts();
   
-  
-
   return (
     <div className='mt-10 mb-60 '>
       <Container>

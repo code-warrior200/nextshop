@@ -14,7 +14,7 @@ const Product = ({products}:Item) => {
   return <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
       {
         products.map((item)=>(
-          <div className="relative bg-white group border-[1px] border-zinc-200 hover:border-zinc-500 duration-300 hover:shadow-xl overflow-hidden ">
+          <div className="0relative bg-white group border-[1px] border-zinc-200 hover:border-zinc-500 duration-300 hover:shadow-xl overflow-hidden ">
             <Link href={{pathname: `/${item?._id}`,query:{_id: item?._id }}}>
               <Image src={item.image} className="w-full h-80 object-contain lg:object-cover group-hover:scale-105 duration-300" 
                 alt="Product image"
