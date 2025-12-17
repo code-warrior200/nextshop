@@ -1,12 +1,14 @@
-//import Image from 'next/image'
 import Banner from './components/Banner'
 import Products from './components/Products'
+import { getProducts } from './helpers'
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
+  
   return (
     <main>
       <Banner/>
-      <Products/>
+      <Products products={products} />
     </main>
   )
 }

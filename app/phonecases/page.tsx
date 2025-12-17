@@ -1,17 +1,17 @@
 import Container from "../components/Container";
 import Products from "../components/Products";
-import { getPhones } from "../helpers";
+import { getPhoneCases } from "../helpers";
 
-export default async function PhonesPage() {
-  const products = await getPhones();
+export default async function PhoneCasesPage() {
+  const products = await getPhoneCases();
 
   return (
     <main className="py-16">
       <Container>
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Smartphones</h1>
+          <h1 className="text-4xl font-bold mb-4">Phone Cases</h1>
           <p className="text-lg text-muted-foreground">
-            Discover the latest smartphones from top brands
+            Protect your device with stylish phone cases
           </p>
         </div>
         <Products products={products} />
@@ -19,3 +19,4 @@ export default async function PhonesPage() {
     </main>
   );
 }
+
