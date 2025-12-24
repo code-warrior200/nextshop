@@ -37,7 +37,7 @@ export function CategorySection({ category, products, index }: CategorySectionPr
       <Container>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#07120a] to-[#0d1f12] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#ff6a00] to-[#ff8a00] flex items-center justify-center">
               <Icon className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -47,7 +47,7 @@ export function CategorySection({ category, products, index }: CategorySectionPr
               </p>
             </div>
           </div>
-          <Button variant="outline" className="border-[#07120a] text-[#07120a] hover:bg-[#07120a] hover:text-white" asChild>
+          <Button variant="outline" className="border-[#ff6a00] text-[#ff6a00] hover:bg-[#ff6a00] hover:text-white" asChild>
             <Link href={category.href}>
               View All
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -59,7 +59,7 @@ export function CategorySection({ category, products, index }: CategorySectionPr
 
         {products.length > 8 && (
           <div className="mt-8 text-center">
-            <Button variant="outline" className="border-[#07120a] text-[#07120a] hover:bg-[#07120a] hover:text-white" asChild>
+            <Button variant="outline" className="border-[#ff6a00] text-[#ff6a00] hover:bg-[#ff6a00] hover:text-white" asChild>
               <Link href={category.href}>
                 View All {products.length} Products
                 <ArrowRight className="ml-2 h-4 w-4" />

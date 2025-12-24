@@ -19,8 +19,124 @@ const fetchWithTimeout = async (url: string, options: RequestInit = {}, timeout:
     }
 };
 
+// Map DummyJSON categories to AliExpress categories
+const mapToAliExpressCategory = (dummyJsonCategory: string, product: any): string => {
+    const category = (dummyJsonCategory || '').toLowerCase();
+    const title = (product.title || '').toLowerCase();
+    const description = (product.description || '').toLowerCase();
+    
+    // Home & Garden
+    if (category.includes('home-decoration') || 
+        category.includes('furniture') || 
+        category.includes('groceries') ||
+        title.includes('garden') || 
+        title.includes('home') ||
+        title.includes('kitchen') ||
+        title.includes('decor')) {
+        return 'home-garden';
+    }
+    
+    // Consumer Electronics
+    if (category.includes('smartphone') || 
+        category.includes('laptop') ||
+        category.includes('tablet') ||
+        category.includes('mobile-accessories') ||
+        title.includes('phone') || 
+        title.includes('smartphone') ||
+        title.includes('laptop') ||
+        title.includes('tablet') ||
+        title.includes('electronic')) {
+        return 'consumer-electronics';
+    }
+    
+    // Fashion & Apparel
+    if (category.includes('mens-shirts') || 
+        category.includes('womens-dresses') ||
+        category.includes('mens-shoes') ||
+        category.includes('womens-shoes') ||
+        category.includes('womens-bags') ||
+        category.includes('womens-jewellery') ||
+        category.includes('mens-watches') ||
+        category.includes('womens-watches') ||
+        title.includes('shirt') ||
+        title.includes('dress') ||
+        title.includes('shoes') ||
+        title.includes('bag') ||
+        title.includes('jewelry') ||
+        title.includes('watch')) {
+        return 'fashion-apparel';
+    }
+    
+    // Beauty & Health
+    if (category.includes('fragrances') || 
+        category.includes('skincare') ||
+        category.includes('beauty') ||
+        title.includes('perfume') ||
+        title.includes('fragrance') ||
+        title.includes('skincare') ||
+        title.includes('beauty') ||
+        title.includes('cosmetic')) {
+        return 'beauty-health';
+    }
+    
+    // Automobiles & Motorcycles
+    if (category.includes('automotive') ||
+        title.includes('car') ||
+        title.includes('auto') ||
+        title.includes('motor') ||
+        title.includes('vehicle') ||
+        title.includes('bike')) {
+        return 'automobiles';
+    }
+    
+    // Sports & Entertainment
+    if (category.includes('sports') ||
+        title.includes('sport') ||
+        title.includes('fitness') ||
+        title.includes('gym') ||
+        title.includes('exercise') ||
+        title.includes('outdoor')) {
+        return 'sports-entertainment';
+    }
+    
+    // Toys & Hobbies
+    if (category.includes('toys') ||
+        category.includes('games') ||
+        title.includes('toy') ||
+        title.includes('game') ||
+        title.includes('puzzle') ||
+        title.includes('board') ||
+        title.includes('card') ||
+        title.includes('hobby') ||
+        title.includes('collectible')) {
+        return 'toys-hobbies';
+    }
+    
+    // Health & Household
+    if (category.includes('health') ||
+        category.includes('household') ||
+        title.includes('health') ||
+        title.includes('medical') ||
+        title.includes('vitamin') ||
+        title.includes('supplement') ||
+        title.includes('household') ||
+        title.includes('cleaning')) {
+        return 'health-household';
+    }
+    
+    // Default to consumer-electronics if it's tech-related, otherwise home-garden
+    if (title.includes('tech') || title.includes('gadget') || title.includes('device')) {
+        return 'consumer-electronics';
+    }
+    
+    return 'home-garden'; // Default fallback
+};
+
 // Transform DummyJSON product to our ProductType
 const transformProduct = (product: any, category: string) => {
+    // Map the DummyJSON category to our AliExpress category
+    const aliExpressCategory = mapToAliExpressCategory(product.category || '', product);
+    
     return {
         _id: product.id,
         title: product.title,
@@ -30,7 +146,7 @@ const transformProduct = (product: any, category: string) => {
         previousPrice: Math.round(product.price * 1.2), // Add 20% to show discount
         isNew: product.rating >= 4.5,
         brand: product.brand || 'Brand',
-        category: category,
+        category: aliExpressCategory,
         quantity: product.stock || 100,
     };
 };
@@ -431,6 +547,7 @@ export const getSportsEntertainment = async () => {
 
 export const getToysHobbies = async () => {
     try {
+        // Fetch all products to find toys/hobbies
         const res = await fetchWithTimeout("https://dummyjson.com/products?limit=100",
             { next: { revalidate: 3600 } },
             8000
@@ -439,20 +556,51 @@ export const getToysHobbies = async () => {
             throw new Error("Failed to fetch Toys & Hobbies");
         }
         const data = await res.json();
-        // Filter for toys/hobbies products
+        
+        // Filter for toys/hobbies products - more comprehensive search
         const toys = data.products
-            .filter((p: any) => 
-                p.title.toLowerCase().includes('toy') ||
-                p.title.toLowerCase().includes('game') ||
-                p.category === 'toys'
-            )
+            .filter((p: any) => {
+                const titleLower = p.title.toLowerCase();
+                const descLower = (p.description || '').toLowerCase();
+                const categoryLower = (p.category || '').toLowerCase();
+                
+                return (
+                    titleLower.includes('toy') ||
+                    titleLower.includes('game') ||
+                    titleLower.includes('puzzle') ||
+                    titleLower.includes('board') ||
+                    titleLower.includes('card') ||
+                    titleLower.includes('play') ||
+                    titleLower.includes('fun') ||
+                    titleLower.includes('collectible') ||
+                    titleLower.includes('hobby') ||
+                    descLower.includes('toy') ||
+                    descLower.includes('game') ||
+                    descLower.includes('play') ||
+                    categoryLower.includes('toy') ||
+                    categoryLower.includes('game') ||
+                    categoryLower === 'toys' ||
+                    categoryLower === 'games'
+                );
+            })
             .slice(0, 30);
         
-        if (toys.length === 0) {
-            return data.products.slice(0, 20).map((p: any) => transformProduct(p, 'toys-hobbies'));
+        // If we found toys, return them
+        if (toys.length > 0) {
+            return toys.map((product: any) => transformProduct(product, 'toys-hobbies'));
         }
         
-        return toys.map((product: any) => transformProduct(product, 'toys-hobbies'));
+        // Fallback: Use a selection of products that could work as toys/hobbies
+        // Select products with lower prices that could be hobby items, games, or collectibles
+        const fallbackToys = data.products
+            .filter((p: any) => p.price < 100) // Affordable items that could be toys
+            .slice(0, 30)
+            .map((p: any) => ({
+                ...transformProduct(p, 'toys-hobbies'),
+                title: p.title.includes('Toy') ? p.title : `${p.title} (Collectible)`,
+            }));
+        
+        return fallbackToys.length > 0 ? fallbackToys : data.products.slice(0, 20).map((p: any) => transformProduct(p, 'toys-hobbies'));
     } catch (error) {
         console.error('Error fetching toys & hobbies:', error);
         return [];

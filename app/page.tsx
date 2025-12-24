@@ -40,16 +40,65 @@ export default async function Home() {
     getHealthHousehold(),
   ]);
 
-  // Group products by category from all products
+  // Group ALL products by their respective categories
+  // First, combine category-specific products with products from allProducts that match the category
   const productsByCategory = {
-    'home-garden': homeGarden.length > 0 ? homeGarden : allProducts.filter((p: ProductType) => p.category === 'home-garden'),
-    'consumer-electronics': consumerElectronics.length > 0 ? consumerElectronics : allProducts.filter((p: ProductType) => p.category === 'consumer-electronics'),
-    'fashion-apparel': fashionApparel.length > 0 ? fashionApparel : allProducts.filter((p: ProductType) => p.category === 'fashion-apparel'),
-    'beauty-health': beautyHealth.length > 0 ? beautyHealth : allProducts.filter((p: ProductType) => p.category === 'beauty-health'),
-    'automobiles': automobiles.length > 0 ? automobiles : allProducts.filter((p: ProductType) => p.category === 'automobiles'),
-    'sports-entertainment': sportsEntertainment.length > 0 ? sportsEntertainment : allProducts.filter((p: ProductType) => p.category === 'sports-entertainment'),
-    'toys-hobbies': toysHobbies.length > 0 ? toysHobbies : allProducts.filter((p: ProductType) => p.category === 'toys-hobbies'),
-    'health-household': healthHousehold.length > 0 ? healthHousehold : allProducts.filter((p: ProductType) => p.category === 'health-household'),
+    'home-garden': [
+      ...homeGarden,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'home-garden' && 
+        !homeGarden.some((hg: ProductType) => hg._id === p._id)
+      )
+    ],
+    'consumer-electronics': [
+      ...consumerElectronics,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'consumer-electronics' && 
+        !consumerElectronics.some((ce: ProductType) => ce._id === p._id)
+      )
+    ],
+    'fashion-apparel': [
+      ...fashionApparel,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'fashion-apparel' && 
+        !fashionApparel.some((fa: ProductType) => fa._id === p._id)
+      )
+    ],
+    'beauty-health': [
+      ...beautyHealth,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'beauty-health' && 
+        !beautyHealth.some((bh: ProductType) => bh._id === p._id)
+      )
+    ],
+    'automobiles': [
+      ...automobiles,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'automobiles' && 
+        !automobiles.some((auto: ProductType) => auto._id === p._id)
+      )
+    ],
+    'sports-entertainment': [
+      ...sportsEntertainment,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'sports-entertainment' && 
+        !sportsEntertainment.some((se: ProductType) => se._id === p._id)
+      )
+    ],
+    'toys-hobbies': [
+      ...toysHobbies,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'toys-hobbies' && 
+        !toysHobbies.some((th: ProductType) => th._id === p._id)
+      )
+    ],
+    'health-household': [
+      ...healthHousehold,
+      ...allProducts.filter((p: ProductType) => 
+        p.category === 'health-household' && 
+        !healthHousehold.some((hh: ProductType) => hh._id === p._id)
+      )
+    ],
   };
   
   return (
