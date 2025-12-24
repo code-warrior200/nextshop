@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User, Package, Heart, LogOut, Settings } from "lucide-react";
-import { motion } from "framer-motion";
 import { toast } from "sonner";
 import Link from "next/link";
 

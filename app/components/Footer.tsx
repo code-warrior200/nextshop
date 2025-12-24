@@ -15,6 +15,7 @@ const Footer = () => {
       { name: "Phones", href: "/phones" },
       { name: "Watches", href: "/watches" },
       { name: "Phone Cases", href: "/phonecases" },
+      { name: "Fragrance", href: "/fragrance" },
       { name: "Accessories", href: "/accessories" },
     ],
     company: [
@@ -45,22 +46,18 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-zinc-900 text-zinc-300">
+    <footer className="bg-[#2c3e50] text-gray-300">
       <div className="max-w-screen-xl mx-auto px-4 pt-16 pb-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <motion.span
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.3 }}
-                className="bg-designColor text-white w-10 h-10 rounded-full inline-flex items-center justify-center text-xl font-bold"
-              >
-                N
-              </motion.span>
+              <div className="w-10 h-10 bg-gradient-to-br from-[#07120a] to-[#0d1f12] rounded flex items-center justify-center">
+                <span className="text-white font-bold text-xl">N</span>
+              </div>
               <span className="text-white text-2xl font-bold">
-                ice<span className="text-designColor">Shop</span>
+                ice<span className="text-[#07120a]">Shop</span>
               </span>
             </Link>
             <p className="text-sm mb-6 max-w-xs">
@@ -90,7 +87,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-designColor transition-colors"
+                    className="text-sm hover:text-[#07120a] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -106,7 +103,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-designColor transition-colors"
+                    className="text-sm hover:text-[#07120a] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -122,7 +119,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-designColor transition-colors"
+                    className="text-sm hover:text-[#07120a] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -138,7 +135,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-designColor transition-colors"
+                    className="text-sm hover:text-[#07120a] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -165,7 +162,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="bg-zinc-900 border-zinc-700 text-white placeholder:text-zinc-500 md:w-64"
               />
-              <Button className="bg-designColor hover:bg-designColor/90">
+              <Button className="bg-[#07120a] hover:bg-[#0d1f12]">
                 Subscribe
               </Button>
             </div>
@@ -190,7 +187,7 @@ const Footer = () => {
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-9 h-9 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-designColor transition-colors"
+                  className="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center hover:bg-[#07120a] transition-colors"
                   aria-label={social.name}
                 >
                   <Icon className="w-4 h-4" />
@@ -202,16 +199,16 @@ const Footer = () => {
           {/* Payment Methods */}
           <div className="flex items-center gap-2">
             <span className="text-sm text-zinc-400">We accept:</span>
-            <div className="flex gap-2">
-              {["Visa", "Mastercard", "PayPal"].map((method) => (
-                <div
-                  key={method}
-                  className="px-3 py-1 bg-zinc-800 rounded text-xs font-medium"
-                >
-                  {method}
-                </div>
-              ))}
-            </div>
+              <div className="flex gap-2">
+                {["Visa", "Mastercard", "PayPal"].map((method) => (
+                  <div
+                    key={method}
+                    className="px-3 py-1 bg-gray-700 rounded text-xs font-medium"
+                  >
+                    {method}
+                  </div>
+                ))}
+              </div>
           </div>
         </div>
       </div>

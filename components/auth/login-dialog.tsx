@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/store/useAuthStore";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
 import { Loader2, Mail, Lock } from "lucide-react";
 
 interface LoginDialogProps {

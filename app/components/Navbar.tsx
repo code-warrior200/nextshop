@@ -39,126 +39,129 @@ const Navbar = ({ className, spanClassName }: Props) => {
     { _id: 911, title: "Phones", href: "/phones" },
     { _id: 912, title: "Phone Cases", href: "/phonecases" },
     { _id: 913, title: "Watches", href: "/watches" },
+    { _id: 915, title: "Fragrance", href: "/fragrance" },
     { _id: 914, title: "Accessories", href: "/accessories" },
   ];
 
   return (
     <>
+      {/* Top Bar - AliExpress Style */}
+      <div className="bg-[#07120a] text-white text-xs py-1.5 hidden md:block">
+        <div className="max-w-screen-2xl mx-auto px-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span>Free Shipping Worldwide</span>
+            <span className="hidden lg:inline">|</span>
+            <span className="hidden lg:inline">Buyer Protection</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <Link href="#" className="hover:underline">Help</Link>
+            <Link href="#" className="hover:underline">Contact Us</Link>
+          </div>
+        </div>
+      </div>
+
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="w-full h-20 border-b bg-white/80 backdrop-blur-xl sticky top-0 z-50"
+        className="w-full bg-white border-b sticky top-0 z-50 shadow-sm"
       >
-        <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4 xl:px-0">
-          {/* Logo */}
+        <div className="max-w-screen-2xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
+          {/* Logo - AliExpress Style */}
           <Link
             href="/"
             className={cn(
-              "text-zinc-950 text-xl font-bold group flex items-center",
+              "flex items-center justify-center h-full min-w-[120px]",
               className
             )}
           >
-            <motion.span
-              whileHover={{ scale: 1.1, rotate: 360 }}
-              transition={{ duration: 0.3 }}
-              className={cn(
-                "bg-zinc-950 text-white w-8 h-8 rounded-full inline-flex items-center justify-center text-xl font-bold mr-2",
-                spanClassName
-              )}
-            >
-              N
-            </motion.span>
-            <span className="hidden sm:inline">
-              ice<span className="text-designColor">Shop</span>
-            </span>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#07120a] to-[#0d1f12] rounded flex items-center justify-center">
+                <span className="text-white font-bold text-xl">N</span>
+              </div>
+              <span className="hidden sm:inline text-xl font-bold text-[#07120a]">
+                iceShop
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {navigation.map((item) => (
-              <Link key={item._id} href={item.href}>
-                <motion.div
-                  whileHover={{ y: -2 }}
-                  className={cn(
-                    "relative cursor-pointer transition-colors hover:text-designColor",
-                    item.href === pathname && "text-designColor"
-                  )}
-                >
-                  {item.title}
-                  {item.href === pathname && (
-                    <motion.span
-                      layoutId="navbar-indicator"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-designColor"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </motion.div>
-              </Link>
-            ))}
-          </nav>
+          {/* Search Bar - AliExpress Style */}
+          <div className="flex-1 max-w-2xl hidden md:flex">
+            <div className="relative w-full flex">
+              <Input
+                type="text"
+                placeholder="Search for products, brands and more"
+                className="w-full h-10 rounded-l-md rounded-r-none border-2 border-[#07120a] focus-visible:ring-0 focus-visible:ring-offset-0 pr-20"
+                onFocus={() => setSearchDialogOpen(true)}
+              />
+              <Button
+                className="h-10 rounded-l-none rounded-r-md bg-[#07120a] hover:bg-[#0d1f12] px-8"
+                onClick={() => setSearchDialogOpen(true)}
+              >
+                <Search className="w-5 h-5" />
+              </Button>
+            </div>
+          </div>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {/* Search */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setSearchDialogOpen(true)}
-            >
-              <Search className="h-5 w-5" />
-            </Button>
 
+          {/* Desktop Actions - AliExpress Style */}
+          <div className="hidden md:flex items-center gap-4">
             {/* Wishlist */}
             <Button
               variant="ghost"
-              size="icon"
-              className="relative"
+              size="sm"
+              className="relative text-gray-700 hover:text-[#07120a]"
               onClick={() => setWishlistOpen(true)}
             >
-              <Heart className="h-5 w-5" />
+              <Heart className="h-5 w-5 mr-1" />
+              <span className="text-xs">Wishlist</span>
               {wishlist.length > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-designColor text-white w-5 h-5 rounded-full text-xs flex items-center justify-center font-semibold"
-                >
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-xs flex items-center justify-center">
                   {wishlist.length}
-                </motion.span>
+                </span>
               )}
             </Button>
 
-            {/* Cart */}
+            {/* Cart - AliExpress Style */}
             <Button
               variant="ghost"
-              size="icon"
-              className="relative"
+              size="sm"
+              className="relative text-gray-700 hover:text-[#07120a]"
               onClick={() => setCartOpen(true)}
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-5 w-5 mr-1" />
+              <span className="text-xs">Cart</span>
               {cart.length > 0 && (
-                <motion.span
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute -top-1 -right-1 bg-designColor text-white w-5 h-5 rounded-full text-xs flex items-center justify-center font-semibold"
-                >
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white w-4 h-4 rounded-full text-xs flex items-center justify-center">
                   {cart.length}
-                </motion.span>
+                </span>
               )}
             </Button>
 
+            {/* User/Auth */}
             {isAuthenticated ? (
               <UserMenu />
             ) : (
               <Button
-                variant="default"
+                variant="outline"
                 size="sm"
+                className="border-[#07120a] text-[#07120a] hover:bg-[#07120a] hover:text-white"
                 onClick={() => setLoginOpen(true)}
               >
-                <LogIn className="h-4 w-4 mr-2" />
-                Login
+                <LogIn className="h-4 w-4 mr-1" />
+                Sign In
               </Button>
             )}
           </div>
+
+          {/* Mobile Search */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setSearchDialogOpen(true)}
+          >
+            <Search className="h-5 w-5" />
+          </Button>
 
           {/* Mobile Menu Button */}
           <Button

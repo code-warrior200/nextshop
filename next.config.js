@@ -1,10 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
-        domains:[
-            "i.ibb.co",
-            "1h3.googleusercontent.com",
-            "avatars.githubsercontent.com",
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'cdn.dummyjson.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'i.ibb.co',
+            },
+            {
+                protocol: 'https',
+                hostname: '1h3.googleusercontent.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubsercontent.com',
+            },
         ],
     },
 };

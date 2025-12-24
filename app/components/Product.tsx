@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ProductType } from "@/type";
 import Image from "next/image";
-import { Heart, ShoppingCart, Eye } from "lucide-react";
+import { Heart, ShoppingCart, Eye, Star } from "lucide-react";
 import FormattedPrice from "./FormattedPrice";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -60,7 +60,7 @@ const Product = ({ products }: Item) => {
     >
       {products.map((product) => (
         <motion.div key={product._id} variants={item}>
-          <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 hover:border-designColor/50">
+          <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#07120a]/50 bg-white">
             <div className="relative aspect-square overflow-hidden bg-gray-50">
               <Link
                 href={{
@@ -77,22 +77,20 @@ const Product = ({ products }: Item) => {
                 />
               </Link>
 
-              {/* Badges */}
-              <div className="absolute top-3 left-3 flex flex-col gap-2">
+              {/* Badges - AliExpress Style */}
+              <div className="absolute top-2 left-2 flex flex-col gap-2">
                 {product.isNew && (
-                  <Badge className="bg-designColor hover:bg-designColor/90">
+                  <Badge className="bg-[#07120a] hover:bg-[#0d1f12] border-0 text-white">
                     New
                   </Badge>
                 )}
                 {product.previousPrice > product.price && (
-                  <Badge variant="destructive">
-                    Save{" "}
-                    {Math.round(
+                  <Badge className="bg-red-500 hover:bg-red-600 border-0 text-white font-semibold">
+                    -{Math.round(
                       ((product.previousPrice - product.price) /
                         product.previousPrice) *
                         100
-                    )}
-                    %
+                    )}%
                   </Badge>
                 )}
               </div>
@@ -144,31 +142,53 @@ const Product = ({ products }: Item) => {
                   query: { _id: product._id },
                 }}
               >
-                <h3 className="font-medium text-sm line-clamp-2 hover:text-designColor transition-colors mb-2">
+                <h3 className="font-medium text-sm line-clamp-2 hover:text-[#07120a] transition-colors mb-2 text-gray-800">
                   {product.title}
                 </h3>
               </Link>
-              <p className="text-xs text-muted-foreground mb-2">
-                {product.brand}
-              </p>
-              <div className="flex items-center gap-2">
-                <p className="font-bold text-lg">
+              
+              {/* Rating - AliExpress Style */}
+              <div className="flex items-center gap-1 mb-2">
+                <div className="flex items-center">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className={`w-3 h-3 ${
+                        star <= 4 ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-gray-500">(128)</span>
+              </div>
+
+              <div className="flex items-center gap-2 mb-2">
+                <p className="font-bold text-lg text-[#07120a]">
                   <FormattedPrice amount={product.price} className="" />
                 </p>
                 {product.previousPrice > product.price && (
-                  <p className="text-sm text-muted-foreground line-through">
-                    <FormattedPrice
-                      amount={product.previousPrice}
-                      className=""
-                    />
-                  </p>
+                  <>
+                    <p className="text-sm text-gray-400 line-through">
+                      <FormattedPrice
+                        amount={product.previousPrice}
+                        className=""
+                      />
+                    </p>
+                    <span className="text-xs text-red-500 font-medium">
+                      -{Math.round(((product.previousPrice - product.price) / product.previousPrice) * 100)}%
+                    </span>
+                  </>
                 )}
               </div>
+              
+              <p className="text-xs text-gray-500">
+                Free Shipping
+              </p>
             </CardContent>
 
             <CardFooter className="p-4 pt-0">
               <Button
-                className="w-full bg-designColor hover:bg-designColor/90"
+                className="w-full bg-[#07120a] hover:bg-[#0d1f12] text-white"
                 onClick={() => handleAddToCart(product)}
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />

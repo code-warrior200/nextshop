@@ -117,7 +117,9 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <Button className="w-full" size="lg" asChild>
-                  <Link href="/checkout">Proceed to Checkout</Link>
+                  <Link href="/checkout" onClick={() => onOpenChange(false)}>
+                    Proceed to Checkout
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"

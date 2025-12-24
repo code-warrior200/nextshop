@@ -17,7 +17,7 @@ const config: Config = {
     },
     extend: {
       colors: {
-        designColor: "#fcb900",
+        designColor: "#07120a", // Primary brand color
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
